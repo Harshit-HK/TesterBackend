@@ -14,7 +14,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "222HRMS Backend Running ✅",
+    message: "333HRMS Backend Running ✅",
     envCheck: {
       DB_HOST: process.env.DB_HOST || "missing",
       DB_USER: process.env.DB_USER || "missing",
