@@ -20,7 +20,6 @@ app.get("/", (req, res) => {
       DB_USER: process.env.DB_USER || "missing",
       DB_PASSWORD: process.env.DB_PASSWORD || "missing",
       DB_NAME: process.env.DB_NAME || "missing",
-      DB_PORT: process.env.DB_PORT || "3306",
     },
   });
 });
@@ -42,22 +41,21 @@ app.get("/data", (req, res) => {
  */
 
 
-// app.get("/db", async (req, res) => {
-//   try {
-//     const [rows] = await db.query("SELECT 1 AS db_ok");
+app.get("/db", (req, res) => {
+  db.connect((err) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: "❌ Database connection failed",
+        error: err.message,
+      });
+    }
 
-//     res.json({
-//       success: true,
-//       message: "✅ MySQL Connected Successfully",
-//       result: rows,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: "❌ MySQL Connection Failed",
-//       error: error.message,
-//     });
-//   }
-// });
+    return res.json({
+      success: true,
+      message: "✅ Database Connected Successfully",
+    });
+  });
+});
 
 export default app;
