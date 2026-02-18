@@ -1,47 +1,63 @@
 import express from "express";
 import cors from "cors";
-
-// import { errorMiddleware } from "./middleware/error.middleware.js";
-
-// import superAdminAuthRoutes from "./modules/superAdmin/auth/superAdminAuth.routes.js";
-// import superAdminClientsRoutes from "./modules/superAdmin/clients/superAdminClients.routes.js";
-// import superAdminEmployeesRoutes from "./modules/superAdmin/employees/superAdminEmployees.routes.js";
-
-// import superAdminStatusesRoutes from "./modules/superAdmin/statuses/superAdminStatuses.routes.js";
-// import superAdminDepartmentsRoutes from "./modules/superAdmin/departments/superAdminDepartments.routes.js";
-// import superAdminDesignationsRoutes from "./modules/superAdmin/designations/superAdminDesignations.routes.js";
-
-
-// import clientAuthRoutes from "./modules/client/auth/clientAuth.routes.js";
-// import employeesRoutes from "./modules/client/employees/employees.routes.js";
-// import attendanceRoutes from "./modules/client/attendance/attendance.routes.js";
+import { db } from "./config/db.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+/**
+ * GET /
+ * Basic server + env check
+ */
 app.get("/", (req, res) => {
-  res.json({ success: true, message: "HRMS Backend Running" + `22222222222222222 Backend is running! 
-DB_HOST: ${process.env.DB_HOST}
-DB_USER: ${process.env.DB_USER}
-DB_PASSWORD: ${process.env.DB_PASSWORD}
-DB_NAME: ${process.env.DB_NAME}`});
+  res.json({
+    success: true,
+    message: "HRMS Backend Running ✅",
+    // envCheck: {
+    //   DB_HOST: process.env.DB_HOST || "missing",
+    //   DB_USER: process.env.DB_USER || "missing",
+    //   DB_PASSWORD: process.env.DB_PASSWORD || "missing",
+    //   DB_NAME: process.env.DB_NAME || "missing",
+    //   DB_PORT: process.env.DB_PORT || "3306",
+    // },
+  });
 });
 
-// app.use("/api/super-admin/auth", superAdminAuthRoutes);
-// app.use("/api/super-admin/clients", superAdminClientsRoutes);
-// app.use("/api/super-admin/employees", superAdminEmployeesRoutes);
+/**
+ * GET /data
+ * Dummy one-line data
+ */
+app.get("/data", (req, res) => {
+  res.json({
+    success: true,
+    data: "This is dummy data from Hostinger Node backend 🚀",
+  });
+});
 
-// app.use("/api/super-admin/departments", superAdminDepartmentsRoutes);
-// app.use("/api/super-admin/designations", superAdminDesignationsRoutes);
-// app.use("/api/super-admin/statuses", superAdminStatusesRoutes);
+/**
+ * GET /db
+ * Database connection test
+ */
 
 
-// app.use("/api/client/auth", clientAuthRoutes);
-// app.use("/api/client/employees", employeesRoutes);
-// app.use("/api/client/attendance", attendanceRoutes);
+// app.get("/db", async (req, res) => {
+//   try {
+//     const [rows] = await db.query("SELECT 1 AS db_ok");
 
-// app.use(errorMiddleware);
+//     res.json({
+//       success: true,
+//       message: "✅ MySQL Connected Successfully",
+//       result: rows,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: "❌ MySQL Connection Failed",
+//       error: error.message,
+//     });
+//   }
+// });
 
 export default app;
