@@ -14,7 +14,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "333HRMS Backend Running ✅",
+    message: "444HRMS Backend Running ✅",
     envCheck: {
       DB_HOST: process.env.DB_HOST || "missing",
       DB_USER: process.env.DB_USER || "missing",
@@ -41,21 +41,21 @@ app.get("/data", (req, res) => {
  */
 
 
-app.get("/db", (req, res) => {
-  db.connect((err) => {
-    if (err) {
-      return res.status(500).json({
-        success: false,
-        message: "❌ Database connection failed",
-        error: err.message,
-      });
-    }
-
+app.get("/db", async (req, res) => {
+  try {
+    await db.query("SELECT 1");
     return res.json({
       success: true,
       message: "✅ Database Connected Successfully",
     });
-  });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "❌ Database connection failed",
+      error: err.message,
+    });
+  }
 });
+
 
 export default app;
