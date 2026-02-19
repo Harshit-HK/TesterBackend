@@ -15,12 +15,6 @@ app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "555HRMS Backend Running ✅",
-    envCheck: {
-      DB_HOST: process.env.DB_HOST || "missing",
-      DB_USER: process.env.DB_USER || "missing",
-      DB_PASSWORD: process.env.DB_PASSWORD || "missing",
-      DB_NAME: process.env.DB_NAME || "missing",
-    },
   });
 });
 
