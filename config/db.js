@@ -4,7 +4,7 @@ export const db = mysql.createPool({
   host: "127.0.0.1",
   user: "u471298916_TUser",     // your hostinger DB user
   password: "pQn7lLp&2",    // your hostinger DB password
-  database: "u471298916_TesterBackend",
+  database: "u471298916_Backend",
   port: 3306,
 
   waitForConnections: true,
